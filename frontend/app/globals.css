@@ -1,42 +1,41 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* Fix faint input text - make it darker and more readable */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-input[type="number"],
-textarea,
-select {
-  color: rgb(17 24 39); /* gray-900 */
-  font-weight: 500;
+@layer base {
+  /* Fix faint input text - make it darker and more readable */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    @apply text-gray-900 font-medium;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-gray-400;
+  }
+
+  select option {
+    @apply text-gray-900 font-medium;
+  }
 }
 
-input::placeholder,
-textarea::placeholder {
-  color: rgb(156 163 175); /* gray-400 */
-}
+@layer components {
+  /* Better focus states */
+  input:focus,
+  textarea:focus,
+  select:focus {
+    @apply outline-none ring-2 ring-blue-500 border-transparent;
+  }
 
-/* Ensure dropdown text is also dark */
-select option {
-  color: rgb(17 24 39); /* gray-900 */
-  font-weight: 500;
-}
-
-/* Better focus states */
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none;
-  ring: 2px solid rgb(59 130 246); /* blue-500 */
-  border-color: transparent;
-}
-
-/* Disabled inputs should be lighter but still readable */
-input:disabled,
-textarea:disabled,
-select:disabled {
-  background-color: rgb(243 244 246); /* gray-100 */
-  color: rgb(107 114 128); /* gray-500 */
-  cursor: not-allowed;
+  /* Disabled inputs */
+  input:disabled,
+  textarea:disabled,
+  select:disabled {
+    @apply bg-gray-100 text-gray-500 cursor-not-allowed;
+  }
 }
