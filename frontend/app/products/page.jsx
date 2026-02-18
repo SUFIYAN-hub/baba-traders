@@ -1,10 +1,11 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import ProductCard from '@/components/ProductCard';
 import { getProducts, getCategories } from '@/lib/api';
 
-export default function ProductsPage() {
+// Separate component for the products content
+function ProductsContent() {
   const searchParams = useSearchParams();
   const [products, setProducts]     = useState([]);
   const [categories, setCategories] = useState([]);
@@ -140,5 +141,20 @@ export default function ProductsPage() {
         </>
       )}
     </div>
+  );
+}
+
+// Main component wrapped in Suspense
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="text-center text-gray-400 py-20">
+          Loading products...
+        </div>
+      </div>
+    }>
+      <ProductsContent />
+    </Suspense>
   );
 }
